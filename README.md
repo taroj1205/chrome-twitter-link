@@ -2,14 +2,22 @@
 
 This is a Chrome extension that allows you to save Twitter lists for easy access. 
 
+## Building the Extension
+
+To build the extension, you need to have Node.js and npm installed on your machine. Once you have these installed, follow these steps:
+
+1. Clone this repository to your local machine.
+2. Navigate to the cloned repository in your terminal.
+3. Run `npm install` to install the necessary dependencies.
+4. Run `npm run build` to build the extension. This will create a `dist` directory with the built extension.
+
 ## Installation
 
 To install the extension, follow these steps:
 
-1. Download the `dist` directory from this repository.
-2. Open the Extension Management page by navigating to `chrome://extensions` in your Chrome browser. Alternatively, you can open this page by clicking on the Extensions menu button and selecting Manage Extensions at the bottom of the menu.
-3. Enable Developer Mode by clicking the toggle switch next to Developer Mode.
-4. Click the LOAD UNPACKED button and select the downloaded `dist` directory.
+1. Navigate to `chrome://extensions` in your Chrome browser. Alternatively, you can open this page by clicking on the Extensions menu button and selecting Manage Extensions at the bottom of the menu.
+2. Enable Developer Mode by clicking the toggle switch next to Developer Mode.
+3. Click the LOAD UNPACKED button and select the `dist` directory that was created when you built the extension.
 
 You should now see the Saved Twitter Lists extension in your list of installed extensions.
 
