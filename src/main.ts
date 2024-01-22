@@ -85,3 +85,34 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTable(tweetsData);
   });
 });
+
+window.onload = function () {
+  // Fetch the latest release from your GitHub repository
+  fetch('https://api.github.com/repos/taroj1205/chrome-twitter-link/releases/latest')
+    .then(response => response.json())
+    .then(data => {
+      const serverVersion = data.tag_name;
+
+      // Get the current version from local storage
+      const currentVersion = "1.0";
+
+      // If the versions do not match, notify the user
+      if (currentVersion !== serverVersion) {
+        const noticeElement = document.getElementById('notice') as HTMLDivElement;
+        const message = `A new version of this extension is available. Please update to the latest version.`
+        const link = `https://github.com/taroj1205/chrome-twitter-link/releases/tag/v${serverVersion}`
+        const messageElement = document.createElement('p');
+        messageElement.textContent = message;
+        messageElement.className = 'text-lg text-red-600';
+        const linkElement = document.createElement('a');
+        linkElement.href = link;
+        linkElement.target = '_blank';
+        linkElement.textContent = 'Click here to update';
+        linkElement.className = 'text-blue-500 underline';
+        noticeElement.appendChild(messageElement);
+        noticeElement.appendChild(linkElement);
+      }
+
+    })
+    .catch(error => console.error('Error:', error));
+};
