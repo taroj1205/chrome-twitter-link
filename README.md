@@ -1,4 +1,4 @@
-# Saved Twitter Lists Extension
+# Save Twitter Lists Extension
 
 This is a Chrome extension that allows you to save Twitter lists for easy access. 
 
