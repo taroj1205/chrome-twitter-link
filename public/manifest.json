@@ -1,6 +1,6 @@
 {
 	"manifest_version": 3,
-	"name": "Twitter Route Change Extension",
+	"name": "Save Twitter Lists",
 	"version": "1.0",
 	"permissions": [
 		"tabs",
