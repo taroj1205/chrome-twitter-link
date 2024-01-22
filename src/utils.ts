@@ -151,6 +151,7 @@ export function createTableRow(tweet: Tweet, index: number) {
   // Media
   // Create a cell for the media
   const mediaCell = createTableCell('', 5);
+  mediaCell.classList.add(bgColorClass);
   [...tweet.images].forEach((mediaSrc) => {
     const mediaElement = document.createElement(mediaSrc.endsWith('.mp4') ? 'video' : 'img') as HTMLImageElement | HTMLVideoElement;
     mediaElement.src = mediaSrc;
