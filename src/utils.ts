@@ -119,7 +119,7 @@ export function createTableRow(tweet: Tweet, index: number) {
   const rowLink = document.createElement('tr');
 
   // Add alternating background color
-  const bgColorClass = index % 2 === 0 ? 'bg-gray-200' : 'bg-white';
+  const bgColorClass = index % 2 === 0 ? 'bg-gray-100' : 'bg-white';
   rowHeaders.classList.add(bgColorClass);
   rowDescription.classList.add(bgColorClass);
   rowLink.classList.add(bgColorClass);
