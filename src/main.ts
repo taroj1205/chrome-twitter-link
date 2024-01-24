@@ -116,7 +116,7 @@ window.onload = function () {
       if (currentVersion !== serverVersion) {
         const noticeElement = document.getElementById('notice') as HTMLDivElement;
         const message = `A new version of this extension is available. Please update to the latest version.`
-        const link = `https://github.com/taroj1205/chrome-twitter-link/releases/tag/v${serverVersion}`
+        const link = `https://github.com/taroj1205/chrome-twitter-link/releases/tag/${serverVersion}`
         const messageElement = document.createElement('p');
         messageElement.textContent = message;
         messageElement.className = 'text-lg text-red-600';
