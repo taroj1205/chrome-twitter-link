@@ -2,6 +2,8 @@ import { Tweet } from './content';
 import { createTableRow } from './utils';
 import "./styles.css"
 
+export let show_deleted = false;
+
 // Function to reset the table
 function resetTable() {
   // Clear the stored tweets data
@@ -27,9 +29,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const table = document.getElementById('linksTable') as HTMLTableElement;
   const tbody = table.querySelector('tbody') as HTMLTableSectionElement;
   const resetButton = document.getElementById('reset') as HTMLButtonElement;
+  const switchButton = document.getElementById('switch') as HTMLButtonElement;
 
   // Add a click event listener to the reset button
   resetButton.addEventListener('click', resetTable);
+
+  // Add a click event listener to the switch button
+  switchButton.addEventListener('click', switchDisplayed)
+
+  function switchDisplayed() {
+    show_deleted = !show_deleted;
+    switchButton.textContent = show_deleted ? "Hide Deleted" : "Show Deleted";
+    updateTable(Array.from(uniqueTweets.values()));
+  }
 
   let lastUpdateSize = 0;
 
@@ -59,6 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Continue with the existing processing of the tweets
     newTweets.forEach((tweet, index) => {
+      // If show_deleted is true, skip the tweet if it has not been deleted
+      // If show_deleted is false, skip the tweet if it has been deleted
+      if ((show_deleted && !tweet.deleted_at) || (!show_deleted && tweet.deleted_at)) {
+        return;
+      }
       const rows = createTableRow(tweet, index);
       rows.forEach(row => tbody.appendChild(row));
     });

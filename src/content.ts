@@ -8,6 +8,7 @@ export type Tweet = {
   profilePicSrc: string;
   urls: string[];
   added_at: string;
+  deleted_at?: string;
 };
 
 console.log('Twitter Route Change Extension is active.');

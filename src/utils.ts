@@ -1,4 +1,33 @@
 import { Tweet } from './content';
+import { show_deleted } from './main';
+
+/**
+ * Function to delete a specific tweet.
+ * @param tweetUrl - The URL of the tweet to be deleted.
+ */
+export function deleteTweet(tweetUrl: string) {
+  // Get the current date and time
+  const currentTime = new Date();
+
+  // Get the tweets data from chrome.storage.local initially
+  chrome.storage.local.get('tweetsData', function (result) {
+    const tweets: Tweet[] = result.tweetsData || [];
+
+    // Find the tweet with the matching URL and set its deleted_at property
+    tweets.forEach((tweet) => {
+      if (tweet.urls.includes(tweetUrl)) {
+        // If show_deleted is true, set deleted_at to null
+        // If show_deleted is false, set deleted_at to the current time
+        tweet.deleted_at = show_deleted ? undefined : currentTime.toISOString();
+      }
+    });
+
+    // Update the tweets data in chrome.storage.local
+    chrome.storage.local.set({ tweetsData: tweets }, function() {
+      console.log('Tweets data updated');
+    });
+  });
+}
 
 // Function to calculate and return the relative time
 export function relative(date: Date) {
@@ -167,18 +196,34 @@ export function createTableRow(tweet: Tweet, index: number) {
   });
 
   // Link
+  // Create a div for the link and delete button
+  const linkDiv = document.createElement('div');
+  linkDiv.className = 'flex justify-between items-center';
+
   // Create a cell for the link
   const linkElement = document.createElement('a') as HTMLAnchorElement;
   linkElement.href = tweet.urls[0];
   linkElement.target = '_blank';
   linkElement.classList.add("text-blue-500", "hover:underline");
   linkElement.textContent = tweet.urls[0];
+  linkDiv.appendChild(linkElement);
+
+  // Create a delete button
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = show_deleted ? 'Restore' : 'Delete';
+  deleteButton.className = 'px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700';
+  deleteButton.addEventListener('click', () => {
+    deleteTweet(tweet.urls[0]);
+  });
+  linkDiv.appendChild(deleteButton);
+
   const linkCell = createTableCell('', 5);
-  linkCell.appendChild(linkElement);
+  linkCell.appendChild(linkDiv);
   rowLink.appendChild(linkCell);
 
   // Append rows to tbody
   const rows = [rowHeaders, rowDescription, rowLink];
+
 
   const rowMedia = document.createElement('tr');
   if (mediaCell.children.length > 0) {
