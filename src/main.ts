@@ -110,8 +110,7 @@ window.onload = function () {
     .then(data => {
       const serverVersion = data.tag_name;
 
-      // Get the current version from local storage
-      const currentVersion = "1.0";
+      const currentVersion = "1.1";
 
       // If the versions do not match, notify the user
       if (currentVersion !== serverVersion) {
